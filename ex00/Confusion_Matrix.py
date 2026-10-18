@@ -31,6 +31,59 @@ def path_test(path: str) -> str:
         f"Expected a CSV file, got '{ext[1:]}'"
     return abspath
 
+def accuracy(df_cm: pd.Dataframe) -> float:
+    pass
+    return 0.0
+
+def precision(df_cm: pd.Dataframe) -> float:
+    pass
+    return 0.0
+
+def recall(df_cm: pd.Dataframe) -> float:
+    pass
+    return 0.0
+
+def specifity(df_cm: pd.Dataframe) -> float:
+    pass
+    return 0.0    
+
+def F1score(df_cm: pd.Dataframe) -> float:
+    """
+    Compute the F1 score from a confusion matrix.
+
+    The F1 score is the harmonic mean of precision and recall,
+    balancing false positives and false negatives in a single metric.
+
+    Parameters
+    ----------
+    df_cm : pd.DataFrame
+        Confusion matrix with actual values as rows and predicted
+        values as columns.
+
+    Returns
+    -------
+    float
+        F1 score between 0 and 1, where 1 means perfect precision
+        and recall. Returns 0.0 if both precision and recall are 0.
+
+    See Also
+    --------
+    precision : Compute precision, TP / (TP + FP).
+    recall : Compute recall, TP / (TP + FN).
+
+    Notes
+    -----
+    F1 = 2 * (precision * recall) / (precision + recall)
+    When precision + recall is 0, the F1 score is undefined. In that
+    case the function returns 0.0 instead of raising ZeroDivisionError,
+    matching scikit-learn's default behaviour.    
+    """    
+    p = precision(df_cm)
+    r = recall df_cm
+    num = 2.0 * p * r
+    den = p + r
+    return num / den if den != 0 else 0.0  
+
 
 def main(truth: str, predict: str) -> None:
     df_t = pd.read_csv(truth, header=None)
