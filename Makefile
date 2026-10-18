@@ -8,33 +8,33 @@ help: ## Show this help menu
 	@awk 'BEGIN {FS = ":.*?## "} /^[0-9a-zA-Z_-]+:.*?## / {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}' $(MAKEFILE_LIST)
 # ###############################################################33
 
-.PHONY: DS3_ex00
-DS3_ex00: ## Create a graph to visualize the data in the same histogram
-	python ex00/Confusion_Matrix.py data/Test_knight.csv
+.PHONY: DS4_ex00
+DS4_ex00: ## Calculates the Confusoin matrix and plot it
+	python ex00/Confusion_Matrix.py data/truth.txt data/predictions.txt
 
-.PHONY: DS3_ex01
-DS3_ex01: ## Shows correlation between the target and all the other features
+.PHONY: DS4_ex01
+DS4_ex01: ## Shows correlation between the target and all the other features
 	python ex01/Heatmap.py data/Train_knight.csv
 
-.PHONY: DS3_ex02
-DS3_ex02: ## Display 4 graphs
+.PHONY: DS4_ex02
+DS4_ex02: ## Display 4 graphs
 	python ex02/variances.py data/Train_knight.csv data/Test_knight.csv
 
-.PHONY: DS3_ex03
-DS3_ex03: ## Standarize, print and plot data
+.PHONY: DS4_ex03
+DS4_ex03: ## Standarize, print and plot data
 	python ex03/Feature_Selection.py data/Train_knight.csv
 
 
-.PHONY: DS3_ex04
-DS3_ex04: ## Normalize, print and plot data
+.PHONY: DS4_ex04
+DS4_ex04: ## Normalize, print and plot data
 	python ex04/Tree.py data/Train_knight.csv
 
-.PHONY: DS3_ex05
-DS3_ex05: ## splits Train_knight.csv into Training_knight.csv and Validation_knight.csv
+.PHONY: DS4_ex05
+DS4_ex05: ## splits Train_knight.csv into Training_knight.csv and Validation_knight.csv
 	python ex05/KNN.py data/Train_knight.csv
 
-.PHONY: DS3_ex06
-DS3_ex06: ## splits Train_knight.csv into Training_knight.csv and Validation_knight.csv
+.PHONY: DS4_ex06
+DS4_ex06: ## splits Train_knight.csv into Training_knight.csv and Validation_knight.csv
 	python ex05/democracy.py data/Train_knight.csv	
 # ###############################################################33
 
