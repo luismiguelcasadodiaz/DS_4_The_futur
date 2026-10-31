@@ -3,6 +3,10 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from pathlib import Path
+
+
+carpeta_script = Path(__file__).resolve().parent
 
 
 def path_test(path: str) -> str:
@@ -55,15 +59,27 @@ def main(path: str) -> None:
     if "knight" not in df.columns:
         raise KeyError("Column 'knight' not found in the DataFrame")
     df["knight"] = df["knight"].map({"Jedi": 1, "Sith": 0})
+    # Sort columns by correlation with "knight" in descending order
+    df = df.reindex(df.corr()["knight"].abs().sort_values(ascending=False).index, axis=1)
+
     print(df.corr())
-    sns.heatmap(df.corr(), annot=False, cmap="coolwarm", linewidths=0.5)
+    # Create a heatmap of the correlation matrix
+    plt.figure(figsize=(12, 12))
+    # Seaborn skips labels automatically when there are too many columns
+    # to fit. Force it to show every one with
+    # xticklabels=True and yticklabels=True:
+    sns.heatmap(df.corr(),
+                annot=True, annot_kws={"size": 6}, fmt=".2f",
+                cmap="coolwarm", linewidths=0.5,
+                xticklabels=True, yticklabels=True)
     plt.title("Heatmap of Correlation Matrix")
-    plt.subplots_adjust(left=0.192,
-                        bottom=0.254,
-                        right=0.99,
-                        top=0.927,
+    plt.subplots_adjust(left=0.09,
+                        bottom=0.178,
+                        right=1,
+                        top=0.962,
                         wspace=0.2,
                         hspace=0.2)
+    plt.savefig(carpeta_script / "heatmap.png", dpi=300, bbox_inches="tight")
     plt.show()
 
 
